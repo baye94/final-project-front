@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00853F;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FDEF42;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E31B23;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <text x="50%" y="65%" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="url(#grad1)" text-anchor="middle">JOLOF RICE</text>
+  <path d="M10,80 Q150,100 290,80" stroke="#00853F" stroke-width="5" fill="none" />
+</svg>

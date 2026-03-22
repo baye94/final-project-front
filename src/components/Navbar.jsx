@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import { data } from "../restApi.json";
 import { Link } from "react-scroll";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { HiOutlineShoppingCart } from "react-icons/hi";
+import { useCart } from "../context/CartContext.jsx";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { cart, toggleCart } = useCart();
+
+  const cartItemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -33,12 +38,20 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <button className="btn btn-primary menuBtn" onClick={() => {
-          document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
-          setShow(false);
-        }}>
-          OUR MENU
-        </button>
+
+        <div className="nav-actions">
+          <button className="cart-btn" onClick={toggleCart}>
+            <HiOutlineShoppingCart size={24} />
+            {cartItemsCount > 0 && <span className="cart-badge">{cartItemsCount}</span>}
+          </button>
+
+          <button className="btn btn-primary menuBtn" onClick={() => {
+            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+            setShow(false);
+          }}>
+            OUR MENU
+          </button>
+        </div>
       </div>
 
       <div className="hamburger" onClick={() => setShow(!show)}>
@@ -100,6 +113,45 @@ const Navbar = () => {
         .nav-link:hover::after, .nav-link.active::after {
           width: 100%;
         }
+
+        .nav-actions {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+        }
+
+        .cart-btn {
+          background: transparent;
+          border: none;
+          color: var(--text-light);
+          cursor: pointer;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color var(--transition-fast);
+        }
+
+        .cart-btn:hover {
+          color: var(--primary-color);
+        }
+
+        .cart-badge {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: var(--primary-color);
+          color: white;
+          font-size: 0.75rem;
+          font-weight: bold;
+          width: 18px;
+          height: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+        }
+
         .hamburger {
           display: none;
           cursor: pointer;
@@ -129,8 +181,9 @@ const Navbar = () => {
             gap: 2.5rem;
             margin-bottom: 2rem;
           }
-          .nav-link {
-            font-size: 1.2rem;
+          .nav-actions {
+            flex-direction: column;
+            gap: 2rem;
           }
           .hamburger {
             display: block;

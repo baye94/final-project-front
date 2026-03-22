@@ -30,25 +30,25 @@
                 },
                 {
                     "id": 2,
-                    "image": "./jolof_rice.png",
+                    "image": "./yassa_poulet.png",
                     "title": "YASSA POULET",
                     "category": "Dinner"
                 },
                 {
                     "id": 3,
-                    "image": "./thieboudienne.png",
+                    "image": "./mafe_stew.png",
                     "title": "MAFE KANDJA",
                     "category": "Lunch"
                 },
                 {
                     "id": 4,
-                    "image": "./jolof_rice.png",
+                    "image": "./thiakry_dessert.png",
                     "title": "THIAKRY PASTE",
                     "category": "Dessert"
                 },
                 {
                     "id": 5,
-                    "image": "./thieboudienne.png",
+                    "image": "./soup_kandia.png",
                     "title": "SOUP KANDIA",
                     "category": "Lunch"
                 },

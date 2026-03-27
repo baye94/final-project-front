@@ -1,6 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import api from "../api.js";
 
 const Catering = () => {
     const [formData, setFormData] = useState({
@@ -11,13 +12,14 @@ const Catering = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleCatering = (e) => {
+    const handleCatering = async (e) => {
         e.preventDefault();
-        if (formData.name && formData.email && formData.guests) {
-            toast.success("Catering Request sent successfully! Our team will contact you soon.");
+        try {
+            const { data } = await api.post('/catering', formData);
+            toast.success(data.message || "Catering Request sent successfully!");
             setFormData({ name: "", email: "", phone: "", guests: "", date: "", eventType: "Wedding" });
-        } else {
-            toast.error("Please fill all required fields.");
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to submit catering request.");
         }
     };
 

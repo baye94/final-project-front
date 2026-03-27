@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import api from "../api.js";
 
 const Reservation = () => {
   const [formData, setFormData] = useState({
@@ -13,14 +14,14 @@ const Reservation = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleReservation = (e) => {
+  const handleReservation = async (e) => {
     e.preventDefault();
-    // Simulate successful API call since backend isn't part of this task
-    if (formData.firstName && formData.email && formData.date && formData.time) {
-      toast.success("Reservation confirmed successfully! (Simulated)");
+    try {
+      const { data } = await api.post('/reservations', formData);
+      toast.success(data.message || "Reservation confirmed successfully!");
       navigate("/success");
-    } else {
-      toast.error("Please fill all required fields correctly.");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to make reservation.");
     }
   };
 

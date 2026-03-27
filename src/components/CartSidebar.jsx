@@ -2,17 +2,23 @@ import { useCart } from '../context/CartContext';
 import { HiX, HiPlus, HiMinus, HiOutlineTrash } from 'react-icons/hi';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import api from "../api.js";
 
 const CartSidebar = () => {
     const { cart, isCartOpen, toggleCart, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
     const navigate = useNavigate();
 
-    const handleCheckout = () => {
+    const handleCheckout = async () => {
         if (cart.length === 0) return;
-        toast.success("Order Placed Successfully!");
-        clearCart();
-        toggleCart();
-        navigate("/success");
+        try {
+            const { data } = await api.post('/orders', { items: cart, totalAmount: cartTotal });
+            toast.success(data.message || "Order Placed Successfully!");
+            clearCart();
+            toggleCart();
+            navigate("/success");
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to place order.");
+        }
     };
 
     return (
